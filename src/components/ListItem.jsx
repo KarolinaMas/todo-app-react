@@ -2,13 +2,14 @@ import React from "react";
 import crossIcon from "../assets/images/icon-cross.svg";
 import checkIcon from "../assets/images/icon-check.svg";
 
-const ListItem = ({ isCompleted, deleteItem, children }) => {
+const ListItem = ({ isCompleted, deleteItem, toggle, children }) => {
   return (
-    <li className="relative w-full border-b border-[#E3E4F1] flex items-center justify-between p-4">
+    <li className="bg-white relative w-full border-b border-[#E3E4F1] rounded-t-sm flex items-center justify-between p-4">
       <label className="flex items-center w-full cursor-pointer relative">
         <input
           type="checkbox"
           checked={isCompleted}
+          onChange={() => toggle()}
           className="peer appearance-none w-5 h-5 border border-[#E3E4F1] rounded-full 
                      checked:bg-gradient-to-br checked:from-[#55DDFF] checked:to-[#C058F3] 
                      checked:border-none focus:outline-none relative"

@@ -6,11 +6,19 @@ import ListItem from "./components/ListItem";
 const App = () => {
   const [inputVal, setInputVal] = useState("");
   const [itemList, setItemList] = useState([]);
+  const [filterOptions, setFilterOptions] = useState([
+    { name: "All", isOn: true },
+    { name: "Active", isOn: false },
+    { name: "Completed", isOn: false },
+  ]);
 
   function addItem(e) {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputVal.trim() !== "") {
       e.preventDefault();
-      setItemList((prev) => [...prev, { value: inputVal, isCompleted: false }]);
+      setItemList((prev) => [
+        ...prev,
+        { value: inputVal.trim(), isCompleted: false },
+      ]);
       setInputVal("");
     }
   }
@@ -18,6 +26,37 @@ const App = () => {
   function deleteItem(value) {
     setItemList((prev) => prev.filter((item) => item.value !== value));
   }
+
+  function toggleCheckbox(value) {
+    setItemList((prev) =>
+      prev.map((item) =>
+        item.value === value
+          ? { ...item, isCompleted: !item.isCompleted }
+          : item
+      )
+    );
+  }
+
+  function handleFilterClick(name) {
+    setFilterOptions((prev) =>
+      prev.map((item) =>
+        item.name === name ? { ...item, isOn: true } : { ...item, isOn: false }
+      )
+    );
+  }
+
+  function clearCompleted() {
+    setItemList((prev) => prev.filter((item) => !item.isCompleted));
+  }
+
+  // Compute filteredItems here:
+  const activeFilter = filterOptions.find((item) => item.isOn)?.name;
+  const filteredItems =
+    activeFilter === "All"
+      ? itemList
+      : activeFilter === "Active"
+      ? itemList.filter((item) => !item.isCompleted)
+      : itemList.filter((item) => item.isCompleted);
 
   return (
     <div className="min-h-[100vh] bg-[#FAFAFA] text-xs">
@@ -31,8 +70,8 @@ const App = () => {
         className="absolute inset-0 w-full h-[200px] sm:h-auto max-h-[35vh] bg-gradient-to-tl from-[#5596FF] to-[#AC2DEB] opacity-70 pointer-events-none"
         aria-hidden="true"
       />
-      <div className="w-full flex flex-col items-center px-6 -mt-40">
-        <header className="flex justify-between items-center w-full max-w-xl mb-6 text-white z-10">
+      <div className="max-w-xl flex flex-col items-center px-6 -mt-40 mx-auto">
+        <header className="flex justify-between items-center w-full mb-8 text-white z-10">
           <h1 className="text-2xl tracking-[0.5em] uppercase font-bold">
             todo
           </h1>
@@ -46,30 +85,49 @@ const App = () => {
           <input
             type="text"
             placeholder="Create a new todo..."
-            className="bg-white text-[#393A4B] w-full max-w-xl p-4 rounded-sm pl-14 focus:outline-0"
+            className="bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 focus:outline-0"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
-            onKeyDown={(e) => addItem(e)}
+            onKeyDown={addItem}
           />
         </div>
 
-        <section className="w-full max-w-xl bg-white  text-[#494C6B] mt-4 rounded-sm z-10 shadow-[0px_3px_38px_0px_rgba(148,149,165,0.35)]">
+        <section className="w-full text-[#494C6B] mt-4 rounded-sm z-10 shadow-[0px_3px_38px_0px_rgba(148,149,165,0.35)]">
           <ul className="w-full">
-            {itemList.map(({ value, isCompleted }) => (
+            {filteredItems.map(({ value, isCompleted }) => (
               <ListItem
                 key={value}
                 isChecked={isCompleted}
                 deleteItem={() => deleteItem(value)}
+                toggle={() => toggleCheckbox(value)}
               >
                 {value}
               </ListItem>
             ))}
           </ul>
-          <div className="p-4 text-[#9495A5] flex justify-between w-full">
-            <p>{itemList.length} items left</p>
-            <button>Clear Completed</button>
+          <div className=" bg-white p-4 text-[#9495A5] flex justify-between w-full rounded-sm">
+            <p>
+              {filteredItems.filter((item) => !item.isCompleted).length} items
+              left
+            </p>
+            <button onClick={clearCompleted}>Clear Completed</button>
           </div>
         </section>
+        <nav className=" w-full z-20">
+          <ul className="bg-white z-20 rounded-sm flex gap-6 text-sm font-bold p-4 justify-center mt-4 shadow-[0px_1px_20px_0px_rgba(148,149,165,0.35)]">
+            {filterOptions.map(({ name, isOn }) => (
+              <li
+                key={name}
+                onClick={() => handleFilterClick(name)}
+                className={`${
+                  isOn ? "text-[#3A7CFD]" : "text-[#9495A5]"
+                } cursor-pointer`}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <footer className="text-center mt-10 text-sm text-gray-400">
           Drag and drop to reorder list
