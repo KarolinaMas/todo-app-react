@@ -49,7 +49,6 @@ const App = () => {
     setItemList((prev) => prev.filter((item) => !item.isCompleted));
   }
 
-  // Compute filteredItems here:
   const activeFilter = filterOptions.find((item) => item.isOn)?.name;
   const filteredItems =
     activeFilter === "All"
@@ -110,7 +109,12 @@ const App = () => {
               {filteredItems.filter((item) => !item.isCompleted).length} items
               left
             </p>
-            <button onClick={clearCompleted}>Clear Completed</button>
+            <button
+              onClick={clearCompleted}
+              className="cursor-pointer hover:text-[#494C6B]"
+            >
+              Clear Completed
+            </button>
           </div>
         </section>
         <nav className=" w-full z-20">
@@ -121,7 +125,7 @@ const App = () => {
                 onClick={() => handleFilterClick(name)}
                 className={`${
                   isOn ? "text-[#3A7CFD]" : "text-[#9495A5]"
-                } cursor-pointer`}
+                } cursor-pointer hover:text-[#494C6B]`}
               >
                 {name}
               </li>
