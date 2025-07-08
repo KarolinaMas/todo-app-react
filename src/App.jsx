@@ -58,7 +58,7 @@ const App = () => {
       : itemList.filter((item) => item.isCompleted);
 
   return (
-    <div className="min-h-[100vh] bg-[#FAFAFA] text-xs">
+    <div className="min-h-[100vh] bg-[#FAFAFA] text-xs sm:text-lg">
       <img
         src={bgImage}
         alt="img"
@@ -69,12 +69,16 @@ const App = () => {
         className="absolute inset-0 w-full h-[200px] sm:h-auto max-h-[35vh] bg-gradient-to-tl from-[#5596FF] to-[#AC2DEB] opacity-70 pointer-events-none"
         aria-hidden="true"
       />
-      <div className="max-w-xl flex flex-col items-center px-6 -mt-40 mx-auto">
+      <div className="max-w-[540px] flex flex-col items-center px-6 -mt-40 mx-auto sm:-mt-49">
         <header className="flex justify-between items-center w-full mb-8 text-white z-10">
-          <h1 className="text-2xl tracking-[0.5em] uppercase font-bold">
+          <h1 className="text-2xl tracking-[0.5em] uppercase font-bold sm:text-[2.5rem]">
             todo
           </h1>
-          <img src={moonIcon} alt="mode icon" className="w-5 h-5" />
+          <img
+            src={moonIcon}
+            alt="mode icon"
+            className="w-5 h-5 sm:w-7 sm:h-7"
+          />
         </header>
 
         <div className="relative w-full">
@@ -84,7 +88,7 @@ const App = () => {
           <input
             type="text"
             placeholder="Create a new todo..."
-            className="bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 focus:outline-0"
+            className="bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 focus:outline-0 sm:px-6 sm:pl-15"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={addItem}
@@ -104,7 +108,7 @@ const App = () => {
               </ListItem>
             ))}
           </ul>
-          <div className=" bg-white p-4 text-[#9495A5] flex justify-between w-full rounded-sm">
+          <div className=" bg-white p-4 text-[#9495A5] flex justify-between w-full rounded-sm sm:text-sm sm:px-6">
             <p>
               {filteredItems.filter((item) => !item.isCompleted).length} items
               left

@@ -4,7 +4,7 @@ import checkIcon from "../assets/images/icon-check.svg";
 
 const ListItem = ({ isCompleted, deleteItem, toggle, children }) => {
   return (
-    <li className="group bg-white relative w-full border-b border-[#E3E4F1] rounded-t-sm flex items-center justify-between p-4">
+    <li className="group bg-white relative w-full border-b border-[#E3E4F1] rounded-t-sm flex items-center justify-between p-4 sm:px-6">
       <label className="flex items-center w-full cursor-pointer relative">
         <input
           type="checkbox"
@@ -19,7 +19,7 @@ const ListItem = ({ isCompleted, deleteItem, toggle, children }) => {
           alt="check icon"
           className="absolute left-0 ml-[5px] h-[9px] pointer-events-none opacity-0 peer-checked:opacity-100"
         />
-        <p className="pl-4 peer-checked:line-through peer-checked:text-[#D1D2DA]">
+        <p className="pl-4 peer-checked:line-through peer-checked:text-[#D1D2DA] sm:pl-5">
           {children}
         </p>
       </label>
