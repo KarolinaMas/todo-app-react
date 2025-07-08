@@ -108,11 +108,26 @@ const App = () => {
               </ListItem>
             ))}
           </ul>
-          <div className=" bg-white p-4 text-[#9495A5] flex justify-between w-full rounded-sm sm:text-sm sm:px-6">
+          <div className=" bg-white p-4 text-[#9495A5] flex justify-between items-center w-full rounded-sm sm:text-sm sm:px-6">
             <p>
               {filteredItems.filter((item) => !item.isCompleted).length} items
               left
             </p>
+            <nav className="hidden sm:block">
+              <ul className="flex gap-6 text-sm font-bold justify-center">
+                {filterOptions.map(({ name, isOn }) => (
+                  <li
+                    key={name}
+                    onClick={() => handleFilterClick(name)}
+                    className={`${
+                      isOn ? "text-[#3A7CFD]" : "text-[#9495A5]"
+                    } cursor-pointer hover:text-[#494C6B]`}
+                  >
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </nav>
             <button
               onClick={clearCompleted}
               className="cursor-pointer hover:text-[#494C6B]"
@@ -121,7 +136,7 @@ const App = () => {
             </button>
           </div>
         </section>
-        <nav className=" w-full z-20">
+        <nav className="sm:hidden w-full z-20">
           <ul className="bg-white z-20 rounded-sm flex gap-6 text-sm font-bold p-4 justify-center mt-4 shadow-[0px_1px_20px_0px_rgba(148,149,165,0.35)]">
             {filterOptions.map(({ name, isOn }) => (
               <li
