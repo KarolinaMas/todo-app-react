@@ -12,14 +12,20 @@ const App = () => {
     { name: "Completed", isOn: false },
   ]);
 
-  function addItem(e) {
-    if (e.key === "Enter" && inputVal.trim() !== "") {
-      e.preventDefault();
+  function createItem() {
+    if (inputVal.trim() !== "") {
       setItemList((prev) => [
         ...prev,
         { value: inputVal.trim(), isCompleted: false },
       ]);
       setInputVal("");
+    }
+  }
+
+  function addItem(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      createItem();
     }
   }
 
@@ -82,7 +88,10 @@ const App = () => {
         </header>
 
         <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
+          <div
+            className="absolute inset-y-0 left-0 flex items-center pl-5 cursor-pointer"
+            onClick={() => createItem()}
+          >
             <span className="w-5 h-5 border border-[#E3E4F1] rounded-full"></span>
           </div>
           <input
