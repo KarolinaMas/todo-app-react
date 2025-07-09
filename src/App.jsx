@@ -109,7 +109,7 @@ const App = () => {
           <ul className="w-full">
             {filteredItems.map(({ value, isCompleted }) => (
               <ListItem
-                key={value}
+                key={crypto.randomUUID()}
                 isChecked={isCompleted}
                 deleteItem={() => deleteItem(value)}
                 toggle={() => toggleCheckbox(value)}
