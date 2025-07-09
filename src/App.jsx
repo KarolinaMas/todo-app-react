@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import moonIcon from "./assets/images/icon-moon.svg";
 import bgImage from "./assets/images/bg-image.jpg";
 import ListItem from "./components/ListItem";
+import FilterBar from "./components/FilterBar";
 
 const App = () => {
   const [inputVal, setInputVal] = useState("");
@@ -123,19 +124,11 @@ const App = () => {
               left
             </p>
             <nav className="hidden sm:block">
-              <ul className="flex gap-6 text-sm font-bold justify-center">
-                {filterOptions.map(({ name, isOn }) => (
-                  <li
-                    key={name}
-                    onClick={() => handleFilterClick(name)}
-                    className={`${
-                      isOn ? "text-[#3A7CFD]" : "text-[#9495A5]"
-                    } cursor-pointer hover:text-[#494C6B]`}
-                  >
-                    {name}
-                  </li>
-                ))}
-              </ul>
+              <FilterBar
+                filterOptions={filterOptions}
+                handleFilterClick={handleFilterClick}
+                isInSection={true}
+              />
             </nav>
             <button
               onClick={clearCompleted}
@@ -146,19 +139,11 @@ const App = () => {
           </div>
         </section>
         <nav className="sm:hidden w-full z-20">
-          <ul className="bg-white z-20 rounded-sm flex gap-6 text-sm font-bold p-4 justify-center mt-4 shadow-[0px_1px_20px_0px_rgba(148,149,165,0.35)]">
-            {filterOptions.map(({ name, isOn }) => (
-              <li
-                key={name}
-                onClick={() => handleFilterClick(name)}
-                className={`${
-                  isOn ? "text-[#3A7CFD]" : "text-[#9495A5]"
-                } cursor-pointer hover:text-[#494C6B]`}
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
+          <FilterBar
+            filterOptions={filterOptions}
+            handleFilterClick={handleFilterClick}
+            isInSection={false}
+          />
         </nav>
 
         <footer className="text-center mt-10 text-sm text-gray-400">
