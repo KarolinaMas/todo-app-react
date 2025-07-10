@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moonIcon from "./assets/images/icon-moon.svg";
+import sunIcon from "./assets/images/icon-sun.svg";
 import bgImage from "./assets/images/bg-image.jpg";
 import ListItem from "./components/ListItem";
 import FilterBar from "./components/FilterBar";
@@ -12,6 +13,19 @@ const App = () => {
     { name: "Active", isOn: false },
     { name: "Completed", isOn: false },
   ]);
+  const [isDarkMode, setIsDarkMode] = useState(() =>
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    if (!isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
   function createItem() {
     if (inputVal.trim() !== "") {
@@ -82,9 +96,10 @@ const App = () => {
             todo
           </h1>
           <img
-            src={moonIcon}
+            src={isDarkMode ? sunIcon : moonIcon}
             alt="mode icon"
-            className="w-5 h-5 sm:w-7 sm:h-7"
+            className="w-5 h-5 sm:w-7 sm:h-7 cursor-pointer"
+            onClick={() => toggleDarkMode()}
           />
         </header>
 
