@@ -4,22 +4,38 @@ import checkIcon from "../assets/images/icon-check.svg";
 
 const ListItem = ({ isChecked, deleteItem, toggle, children }) => {
   return (
-    <li className="group bg-white relative w-full border-b border-[#E3E4F1] rounded-t-sm flex items-center justify-between p-4 sm:px-6">
-      <label className="flex items-center w-full cursor-pointer relative">
+    <li
+      className="
+          group relative flex items-center justify-between bg-white w-full border-b border-[#E3E4F1] rounded-t-sm p-4 
+          sm:px-6
+        "
+    >
+      <label className="relative flex items-center w-full cursor-pointer">
         <input
           type="checkbox"
           checked={isChecked}
           onChange={() => toggle()}
-          className="peer appearance-none w-5 h-5 border border-[#E3E4F1] rounded-full 
-                     checked:bg-gradient-to-br checked:from-[#55DDFF] checked:to-[#C058F3] 
-                     checked:border-none focus:outline-none relative group-hover:border-[#C058F3]"
+          className="
+            peer appearance-none w-5 h-5 border border-[#E3E4F1] rounded-full 
+            checked:bg-gradient-to-br checked:from-[#55DDFF] checked:to-[#C058F3] 
+            checked:border-none focus:outline-none relative group-hover:border-[#C058F3]
+          "
         />
         <img
           src={checkIcon}
           alt="check icon"
-          className="absolute left-0 ml-[5px] h-[9px] pointer-events-none opacity-0 peer-checked:opacity-100"
+          className="
+            absolute left-0 ml-[5px] h-[9px] pointer-events-none opacity-0 
+            peer-checked:opacity-100
+          "
         />
-        <p className="pl-4 peer-checked:line-through peer-checked:text-[#D1D2DA] sm:pl-5">
+        <p
+          className="
+            pl-4 
+            peer-checked:line-through peer-checked:text-[#D1D2DA] 
+            sm:pl-5
+          "
+        >
           {children}
         </p>
       </label>

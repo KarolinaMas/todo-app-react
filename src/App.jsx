@@ -79,26 +79,50 @@ const App = () => {
       : itemList.filter((item) => item.isCompleted);
 
   return (
-    <div className="min-h-[100vh] bg-[#FAFAFA] text-xs sm:text-lg">
+    <div
+      className="
+        min-h-[100vh] bg-[#FAFAFA] text-xs 
+        sm:text-lg
+      "
+    >
       <img
         src={bgImage}
         alt="img"
         aria-hidden
-        className="h-[200px] sm:h-auto max-h-[35vh] object-cover w-full"
+        className="
+          h-[200px] max-h-[35vh] object-cover w-full 
+          sm:h-auto
+        "
       />
       <div
-        className="absolute inset-0 w-full h-[200px] sm:h-auto max-h-[35vh] bg-gradient-to-tl from-[#5596FF] to-[#AC2DEB] opacity-70 pointer-events-none"
+        className="
+          absolute inset-0 w-full h-[200px] max-h-[35vh] bg-gradient-to-tl from-[#5596FF] to-[#AC2DEB] opacity-70 pointer-events-none
+          sm:h-auto
+        "
         aria-hidden="true"
       />
-      <div className="max-w-[540px] flex flex-col items-center px-6 -mt-40 mx-auto sm:-mt-49">
+      <div
+        className="
+          max-w-[540px] flex flex-col items-center px-6 -mt-40 mx-auto 
+          sm:-mt-49
+        "
+      >
         <header className="flex justify-between items-center w-full mb-8 text-white z-10">
-          <h1 className="text-2xl tracking-[0.5em] uppercase font-bold sm:text-[2.5rem]">
+          <h1
+            className="
+                text-2xl tracking-[0.5em] uppercase font-bold 
+                sm:text-[2.5rem]
+              "
+          >
             todo
           </h1>
           <img
             src={isDarkMode ? sunIcon : moonIcon}
             alt="mode icon"
-            className="w-5 h-5 sm:w-7 sm:h-7 cursor-pointer"
+            className="
+              w-5 h-5 cursor-pointer
+              sm:w-7 sm:h-7
+            "
             onClick={() => toggleDarkMode()}
           />
         </header>
@@ -113,7 +137,11 @@ const App = () => {
           <input
             type="text"
             placeholder="Create a new todo..."
-            className="bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 focus:outline-0 sm:px-6 sm:pl-15"
+            className="
+              bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 
+              focus:outline-0 
+              sm:px-6 sm:pl-15
+            "
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={addItem}
@@ -133,7 +161,12 @@ const App = () => {
               </ListItem>
             ))}
           </ul>
-          <div className=" bg-white p-4 text-[#9495A5] flex justify-between items-center w-full rounded-sm sm:text-sm sm:px-6">
+          <div
+            className="
+              bg-white p-4 text-[#9495A5] flex justify-between items-center w-full rounded-sm 
+              sm:text-sm sm:px-6
+            "
+          >
             <p>
               {filteredItems.filter((item) => !item.isCompleted).length} items
               left
@@ -153,7 +186,7 @@ const App = () => {
             </button>
           </div>
         </section>
-        <nav className="sm:hidden w-full z-20">
+        <nav className="w-full z-20 sm:hidden">
           <FilterBar
             filterOptions={filterOptions}
             handleFilterClick={handleFilterClick}
