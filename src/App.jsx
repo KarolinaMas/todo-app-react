@@ -19,9 +19,9 @@ const App = () => {
 
   useEffect(() => {
     if (!isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
       document.documentElement.classList.remove("dark");
+    } else {
+      document.documentElement.classList.add("dark");
     }
   }, [isDarkMode]);
 
@@ -83,6 +83,7 @@ const App = () => {
       className="
         min-h-[100vh] bg-[#FAFAFA] text-xs 
         sm:text-lg
+        dark:bg-[#171823]
       "
     >
       <img
@@ -98,6 +99,7 @@ const App = () => {
         className="
           absolute inset-0 w-full h-[200px] max-h-[35vh] bg-gradient-to-tl from-[#5596FF] to-[#AC2DEB] opacity-70 pointer-events-none
           sm:h-auto
+          dark:from-[#3710BD] dark:to-[#A42395]
         "
         aria-hidden="true"
       />
@@ -132,7 +134,12 @@ const App = () => {
             className="absolute inset-y-0 left-0 flex items-center pl-5 cursor-pointer"
             onClick={() => createItem()}
           >
-            <span className="w-5 h-5 border border-[#E3E4F1] rounded-full"></span>
+            <span
+              className="
+                    w-5 h-5 border border-[#E3E4F1] rounded-full
+                    dark:border-[#393A4B]
+                  "
+            ></span>
           </div>
           <input
             type="text"
@@ -141,6 +148,7 @@ const App = () => {
               bg-white text-[#393A4B] w-full p-4 rounded-sm pl-14 
               focus:outline-0 
               sm:px-6 sm:pl-15
+              dark:bg-[#25273D] dark:text-[#767992]
             "
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
@@ -148,7 +156,12 @@ const App = () => {
           />
         </div>
 
-        <section className="w-full text-[#494C6B] mt-4 rounded-sm z-10 shadow-[0px_3px_38px_0px_rgba(148,149,165,0.35)]">
+        <section
+          className="
+                  w-full text-[#494C6B] mt-4 rounded-sm z-10 shadow-[0px_3px_38px_0px_rgba(148,149,165,0.35)]
+                  dark:shadow-none
+                "
+        >
           <ul className="w-full">
             {filteredItems.map(({ value, isCompleted }) => (
               <ListItem
@@ -165,6 +178,7 @@ const App = () => {
             className="
               bg-white p-4 text-[#9495A5] flex justify-between items-center w-full rounded-sm 
               sm:text-sm sm:px-6
+              dark:bg-[#25273D] dark:text-[#5B5E7E]
             "
           >
             <p>
@@ -194,7 +208,7 @@ const App = () => {
           />
         </nav>
 
-        <footer className="text-center mt-10 text-sm text-gray-400">
+        <footer className="text-center mt-10 text-sm text-gray-400 dark:text-[#5B5E7E]">
           Drag and drop to reorder list
         </footer>
       </div>
