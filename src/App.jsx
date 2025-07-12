@@ -20,9 +20,15 @@ const App = () => {
     { name: "Active", isOn: false },
     { name: "Completed", isOn: false },
   ]);
-  const [isDarkMode, setIsDarkMode] = useState(() =>
-    document.documentElement.classList.contains("dark")
-  );
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const stored = localStorage.getItem("mode");
+
+    if (stored !== null && stored !== undefined) {
+      return JSON.parse(stored);
+    }
+
+    return document.documentElement.classList.contains("dark");
+  });
 
   useEffect(() => {
     localStorage.setItem("itemList", JSON.stringify(itemList));
@@ -34,6 +40,8 @@ const App = () => {
     } else {
       document.documentElement.classList.add("dark");
     }
+
+    localStorage.setItem("mode", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
