@@ -7,7 +7,14 @@ import FilterBar from "./components/FilterBar";
 
 const App = () => {
   const [inputVal, setInputVal] = useState("");
-  const [itemList, setItemList] = useState([]);
+  const [itemList, setItemList] = useState(() => {
+    const stored = localStorage.getItem("itemList");
+
+    if (stored && stored !== "undefined") {
+      return JSON.parse(stored);
+    }
+    return [];
+  });
   const [filterOptions, setFilterOptions] = useState([
     { name: "All", isOn: true },
     { name: "Active", isOn: false },
@@ -16,6 +23,10 @@ const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(() =>
     document.documentElement.classList.contains("dark")
   );
+
+  useEffect(() => {
+    localStorage.setItem("itemList", JSON.stringify(itemList));
+  }, [itemList]);
 
   useEffect(() => {
     if (!isDarkMode) {
@@ -208,7 +219,7 @@ const App = () => {
           />
         </nav>
 
-        <footer className="text-center mt-10 text-sm text-gray-400 dark:text-[#5B5E7E]">
+        <footer className="text-center my-10 text-sm text-gray-400 dark:text-[#5B5E7E]">
           Drag and drop to reorder list
         </footer>
       </div>
