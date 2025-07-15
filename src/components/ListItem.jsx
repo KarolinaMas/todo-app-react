@@ -2,14 +2,28 @@ import React from "react";
 import crossIcon from "../assets/images/icon-cross.svg";
 import checkIcon from "../assets/images/icon-check.svg";
 
-const ListItem = ({ isChecked, deleteItem, toggle, children }) => {
+const ListItem = ({
+  children,
+  isChecked,
+  deleteItem,
+  toggle,
+  draggable,
+  onDragStart,
+  onDragOver,
+  onDrop,
+}) => {
   return (
     <li
       className="
           group relative flex items-center justify-between bg-white w-full border-b border-[#E3E4F1] rounded-t-sm p-4 
           sm:px-6
           dark:bg-[#25273D] dark:text-[#C8CBE7] dark:border-[#393A4B]
+          cursor-grab active:opacity-60
         "
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
     >
       <label className="relative flex items-center w-full cursor-pointer">
         <input

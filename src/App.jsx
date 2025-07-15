@@ -30,6 +30,8 @@ const App = () => {
     return document.documentElement.classList.contains("dark");
   });
 
+  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("itemList", JSON.stringify(itemList));
   }, [itemList]);
@@ -87,6 +89,25 @@ const App = () => {
 
   function clearCompleted() {
     setItemList((prev) => prev.filter((item) => !item.isCompleted));
+  }
+
+  function handleDragStart(index) {
+    setDraggedItemIndex(index);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+  }
+
+  function handleDrop(index) {
+    if (draggedItemIndex === null) return;
+
+    const updatedList = [...itemList];
+    const [movedItem] = updatedList.splice(draggedItemIndex, 1);
+    updatedList.splice(index, 0, movedItem);
+
+    setItemList(updatedList);
+    setDraggedItemIndex(null);
   }
 
   const activeFilter = filterOptions.find((item) => item.isOn)?.name;
@@ -182,9 +203,14 @@ const App = () => {
                 "
         >
           <ul className="w-full">
-            {filteredItems.map(({ value, isCompleted }) => (
+            {filteredItems.map(({ value, isCompleted }, index) => (
               <ListItem
-                key={crypto.randomUUID()}
+                key={value}
+                draggable
+                onDragStart={() => handleDragStart(index)}
+                onDragOver={(e) => handleDragOver(e, index)}
+                onDrop={() => handleDrop(index)}
+                className="cursor-grab active:opacity-50"
                 isChecked={isCompleted}
                 deleteItem={() => deleteItem(value)}
                 toggle={() => toggleCheckbox(value)}
